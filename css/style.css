@@ -163,7 +163,7 @@ header {
 .card {
     width: 100%;
     background: #fff;
-    padding: 8px;
+    padding: 16px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #ddd;
@@ -185,25 +185,21 @@ header {
 .card.balance {
     background-color: #4745A4;
     color: white;
-    padding: 20px;
     border-radius: 10px;
     font-family: Arial, sans-serif;
 }
 
 .card.saving {
-    padding: 20px;
     border-radius: 10px;
     font-family: Arial, sans-serif;
 }
 
 .card.expenses {
-    padding: 20px;
     border-radius: 10px;
     font-family: Arial, sans-serif;
 }
 
 .card.incomes {
-    padding: 20px;
     border-radius: 10px;
     font-family: Arial, sans-serif;
 }
@@ -277,15 +273,6 @@ header {
     align-items: center;
 }
 
-.saving-plan ul, .transactions ul {
-    list-style: none;
-}
-
-.saving-plan ul li, .transactions ul li {
-    display: flex;
-    justify-content: space-between;
-}
-
 progress {
     width: 100%;
     height: 8px;
@@ -328,10 +315,12 @@ progress::-moz-progress-bar {
 
 /* Recent Transcation */
 #recent-transaction {
+    display: flex;
+    flex-direction: column;
     margin-top: 20px;
-    width: 26%; 
+    width: 30%; 
     background: #fff;
-    padding: 20px;
+    padding: 0 20px 12px 20px;
     margin-left: auto; 
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -344,45 +333,55 @@ progress::-moz-progress-bar {
     border-bottom: 1px solid #ddd; 
 }
 
-.recent-transactions {
-    width: 100%; 
+.section-header a {
+    text-decoration: none;
 }
 
-.recent-transactions .transaction {
+.recent-transactions{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.transaction {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 0;
-    margin-bottom: 5px;
+    padding: 10px;
+    background: #fff;
+    margin-top: 4px;
 }
 
-.recent-transactions .icon img {
-    width: 20px; 
-    height: 20px;
-}
-
-.recent-transactions .details {
+.app {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.recent-transactions .details p {
+.icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details p {
     margin: 0;
+    font-size: 14px;
+    color: #666;
 }
 
 .recent-transactions .amount {
     font-weight: bold;
     color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
 }
 
 .recent-transactions .status {
     color: green;
     font-size: 14px;
-    margin-top: 5px; 
-}
-.recent-transactions .amount {
-    display: block; 
+    margin-top: 2px; 
+    text-align: center;
 }
