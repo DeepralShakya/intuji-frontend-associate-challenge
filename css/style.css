@@ -24,6 +24,9 @@ body {
 
 /* Sidebar */
 .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -31,8 +34,20 @@ body {
     background: #fff;
     height: 100vh;
     padding-left: 28px;
-    padding-right: 28px;
+    padding-right: 28px;    
     flex-shrink: 0; 
+}
+
+.hamburger {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
 }
 
 .nav-list {
@@ -69,10 +84,11 @@ body {
 
 /* Main Content */
 #main-content {
-    padding: 24px;
+    flex: 1;
+    padding: 20px;
     display: flex;
+    margin-left: 300px;
     flex-direction: column;
-    width: 100%;
 }
 
 header {
@@ -88,7 +104,7 @@ header {
     display: flex;
     align-items: center;
     background-color: white;
-    padding: 8px 16px;
+    padding: 6px 16px;
     border-radius: 100px;
 }
 
@@ -111,7 +127,7 @@ header {
     display: flex;
     align-items: center;
     background: white;
-    padding: 8px 16px;
+    padding: 6px 16px;
     border-radius: 50px;
     justify-content: space-between;
 }
@@ -144,8 +160,9 @@ header {
 
 .main-content__container {
     display: flex;
-    gap: 28px;
+    justify-content: space-between;
     width: 100%;
+    gap: 24px;
 }
 
 /* Overview Cards */
@@ -155,9 +172,8 @@ header {
     display: flex;
     flex-direction: column;
     background: #fff;
-    padding: 0 16px 12px 12px;
+    padding: 0 20px 12px 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .card {
@@ -165,7 +181,6 @@ header {
     background: #fff;
     padding: 16px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #ddd;
 }
 
@@ -182,28 +197,23 @@ header {
     margin-right: 8px; 
 }
 
-.card.balance {
-    background-color: #4745A4;
-    color: white;
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-}
-
-.card.saving {
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-}
-
-.card.expenses {
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-}
-
+.card.balance,
+.card.saving,
+.card.expenses,
 .card.incomes {
     border-radius: 10px;
     font-family: Arial, sans-serif;
 }
 
+.card.balance:hover,
+.card.saving:hover,
+.card.expenses:hover,
+.card.incomes:hover {
+    background-color: #4745A4;
+    color: white;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
 .card-header {
     display: flex;
     align-items: center;
@@ -259,12 +269,13 @@ header {
 
 /* Saving Plan */
 #saving-plan {
+    display: flex;
+    flex-direction: column;
     margin-top: 20px;
     width: 30%; 
     background: #fff;
-    padding: 0 20px 16px 20px;
+    padding: 0 20px 12px 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .plan-header {
@@ -321,9 +332,7 @@ progress::-moz-progress-bar {
     width: 30%; 
     background: #fff;
     padding: 0 20px 12px 20px;
-    margin-left: auto; 
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .section-header {
@@ -384,4 +393,244 @@ progress::-moz-progress-bar {
     font-size: 14px;
     margin-top: 2px; 
     text-align: center;
+}
+
+/* analytics */
+#analytics {
+    margin-top: 20px;
+    width: 70%;
+    padding: 0 20px 12px 20px;
+    background: white;
+    border-radius: 12px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.blue {
+    background-color: #6466F1;
+}
+
+.yellow {
+    background-color: #EAB308;
+}
+
+select {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chart-container {
+    width: 100%;
+    height: 240px;
+}
+
+/* Mobile view */
+@media screen and (max-width: 767px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        position: fixed;
+        left: -300px; 
+        top: 0;
+        width: 240px;
+        height: 100vh;
+        background: white;
+        transition: left 0.3s ease-in-out;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .sidebar.active {
+        left: 0; 
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .sidebar.active + .overlay {
+        display: block;
+    }
+
+    body.sidebar-active {
+        overflow: hidden;
+    }
+    
+    .sidebar {
+        overflow-y: auto;
+    }
+
+    .sidebar.active ~ #main-content {
+        overflow: hidden;
+        height: 100vh;
+    }
+    
+    header {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        margin-bottom: 4px;
+    }
+
+    .hamburger {
+        display: block;
+    }
+    
+    .profile {
+        width: 100%;
+        padding: 4px 6px;
+    }
+
+    .search {
+        padding: 4px 6px;
+    }
+    
+    #main-content {
+        padding: 12px;
+        margin-left: 0;
+        margin-right: 6px;
+    }
+    
+    .main-content__container {
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+    }
+    
+    #overview,
+    #analytics,
+    #saving-plan,
+    #recent-transaction {
+        width: 100%;
+        margin-top: 4px;
+        padding: 4px;
+    }
+    
+    .card-row {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2px;
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+
+    
+    .card-row .card:last-child {
+        margin-right: 0; 
+    }
+    
+    .card {
+        width: 100%;
+        padding: 4px;
+    }
+    
+    .card-header i{
+        font-size: 12px;
+    }
+
+    .section-header {
+        padding: 8px 0;
+    }
+    
+    .transaction {
+        padding: 8px 0;
+    }
+}
+
+/* Tablet View */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .sidebar {
+        height: 100%;
+        width: 180px;
+        padding: 16px 12px;
+    }
+    
+    .nav-list li {
+        padding: 12px 8px;
+    }
+    
+    header {
+        gap: 16px;
+        padding: 0 8px;
+    }
+    
+    .search {
+        width: 65%;
+    }
+    
+    .profile {
+        width: 30%;
+    }
+    
+    #main-content {
+        padding: 16px 8px;
+        margin-left: 220px;
+    }
+    
+    .main-content__container {
+        gap: 16px;
+    }
+    
+    #overview {
+        width: 100%;
+    }
+    
+    #analytics {
+        width: 100%;
+    }
+    
+    .card-row {
+        gap: 12px;
+    }
+    
+    .card {
+        width: calc(50% - 6px);
+    }
+    
+    #saving-plan,
+    #recent-transaction {
+        width: calc(50% - 8px);
+    }
+    
+    .plan-header,
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .target-date {
+        margin-left: 0;
+    }
 }
