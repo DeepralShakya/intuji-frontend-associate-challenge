@@ -455,7 +455,7 @@ select {
         position: fixed;
         left: -300px; 
         top: 0;
-        width: 240px;
+        width: 150px;
         height: 100vh;
         background: white;
         transition: left 0.3s ease-in-out;

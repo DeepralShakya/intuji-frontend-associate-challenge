@@ -7,15 +7,9 @@ async function loadContent() {
         document.getElementById("saving-plan").innerHTML = await (await fetch('components/saving-plan.html')).text();
         document.getElementById("analytics").innerHTML = await (await fetch('components/analytics.html')).text();
         document.getElementById("recent-transaction").innerHTML = await (await fetch('components/recent-transaction.html')).text();
-        
-        initializeChart();
 
-        document.querySelector('.hamburger').addEventListener('click', function() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('active');
-            
-            document.body.classList.toggle('sidebar-active');
-        });
+        initializeChart();
+        setupSidebarToggle();
     } catch (error) {
         console.error('Error loading content:', error);
     }
@@ -71,39 +65,62 @@ function initializeChart() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    display: false,  
-                }
+                legend: { display: false }
             },
             scales: {
                 x: {
-                    grid: {
-                        display: false 
-                    },
-                    ticks: {
-                        font: {
-                            size: 10 
-                        }
-                    },
+                    grid: { display: false },
+                    ticks: { font: { size: 10 } },
                     categoryPercentage: 0.5,
-                    barPercentage: 0.5 
+                    barPercentage: 0.5
                 },
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        stepSize: 5000, 
-                        callback: function(value) {
-                            return value / 1000 + 'k'; 
-                        },
+                        stepSize: 5000,
+                        callback: function(value) { return value / 1000 + 'k'; },
                         min: 0,
                         max: 20000,
                     },
-                    grid: {
-                        display: false 
-                    }
+                    grid: { display: false }
                 }
             }
         }
+    });
+}
+
+function setupSidebarToggle() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    document.body.appendChild(overlay);
+
+    const hamburger = document.querySelector('.hamburger');
+    if (!hamburger) return;
+
+    hamburger.addEventListener('click', function () {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.classList.toggle('sidebar-active');
+
+        const icon = hamburger.querySelector('i');
+        if (sidebar.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    overlay.addEventListener('click', function () {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.classList.remove('sidebar-active');
+
+        const icon = hamburger.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
     });
 }
 
